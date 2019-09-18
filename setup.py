@@ -4,7 +4,7 @@ print(setuptools.find_packages())
 
 setuptools.setup(
     name="novadax",
-    version="1.0.0.dev11",
+    version="1.0.1",
     author="NovaDAX",
     author_email="support@novadax.com",
     description="NovaDAX API SDK",
