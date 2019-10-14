@@ -7,7 +7,7 @@ SECRET_KEY = 'your secret key'
 url = "url"
 
 
-class TestNovadaxApi(unittest.TestCase):
+class TestAccountAPI(unittest.TestCase):
     def test_conn(self):
         client = NovaClient(ACCESS_KEY, SECRET_KEY, url)
         print(client.get_timestamp())
