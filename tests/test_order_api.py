@@ -6,7 +6,7 @@ import unittest
 from novadax import RequestClient as NovaClient
 from tests.test_config import API_URL, ACCESS_KEY, SECRET_KEY
 
-class TestCommonAPI(unittest.TestCase):
+class TestOrderAPI(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         self.api = NovaClient(ACCESS_KEY, SECRET_KEY, url=API_URL)
