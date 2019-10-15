@@ -33,7 +33,7 @@ class TestMarketAPI(unittest.TestCase):
             })
     
     def test_get_ticker(self):
-        symbols = ['BTC_BRL']
+        symbols = ['BTC_BRL', 'ETH_BTC', 'BTC_ETH']
         for symbol in symbols:
             response = self.api.get_ticker(symbol)
             self.are_dict_type_equal(response['data'], {
@@ -50,7 +50,7 @@ class TestMarketAPI(unittest.TestCase):
             })
     
     def test_get_depth(self):
-        symbols = ['BTC_BRL']
+        symbols = ['BTC_BRL', 'ETH_BTC', 'BTC_ETH']
         for symbol in symbols:
             response = self.api.get_depth(symbol)
             self.are_dict_type_equal(response['data'], {
@@ -68,7 +68,7 @@ class TestMarketAPI(unittest.TestCase):
             self.assertEqual(len(response['data']['bids'][0]), 2)
 
     def test_list_trades(self):
-        symbols = ['BTC_BRL']
+        symbols = ['BTC_BRL', 'ETH_BTC', 'BTC_ETH']
         for symbol in symbols:
             response = self.api.list_trades(symbol)
             self.assertLessEqual(0, len(response['data']))
