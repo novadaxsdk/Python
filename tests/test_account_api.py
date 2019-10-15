@@ -1,21 +1,15 @@
 import unittest
 
 from novadax import RequestClient as NovaClient
-
-ACCESS_KEY = 'your access key'
-SECRET_KEY = 'your secret key'
-url = "url"
-
+from tests.test_config import API_URL, ACCESS_KEY, SECRET_KEY
 
 class TestAccountAPI(unittest.TestCase):
-    def test_conn(self):
-        client = NovaClient(ACCESS_KEY, SECRET_KEY, url)
-        print(client.get_timestamp())
+    @classmethod
+    def setUpClass(self):
+        self.api = NovaClient(ACCESS_KEY, SECRET_KEY, url=API_URL)
 
     def test_balance(self):
-        client = NovaClient(ACCESS_KEY, SECRET_KEY, url)
-        print(client.get_account_balance())
+        print(self.api.get_account_balance())
 
     def test_withdraw_coin(self):
-        client = NovaClient(ACCESS_KEY, SECRET_KEY, url)
-        print(client.withdraw_coin("USDT","1",'..'))
+        print(self.api.withdraw_coin("USDT","1",'..'))

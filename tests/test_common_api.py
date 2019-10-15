@@ -12,7 +12,8 @@ class TestCommonAPI(unittest.TestCase):
     def are_dict_type_equal(self, first_dict, second_dict):
         self.assertCountEqual(first_dict.keys(), second_dict.keys())
         for item_key in first_dict.keys():
-            self.assertIsInstance(first_dict[item_key], second_dict[item_key].__class__)
+            if first_dict[item_key] is not None and second_dict[item_key] is not None:
+                self.assertIsInstance(first_dict[item_key], second_dict[item_key].__class__)
 
     def test_list_symbols(self):
         response = self.api.list_symbols()
