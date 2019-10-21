@@ -21,7 +21,7 @@ class TestOrderAPI(unittest.TestCase):
                 self.assertIsInstance(first_dict[item_key], second_dict[item_key].__class__)
 
     def test_place_limit_order(self):
-        symbols = ['BTC_BRL', 'ETH_BTC', 'BTC_ETH']
+        symbols = ['BTC_BRL', 'ETH_BTC', 'XRP_ETH']
         for symbol in symbols:
             symbol_config = self.symbols_config[symbol]
             side = random.choice(['BUY', 'SELL'])
@@ -66,7 +66,7 @@ class TestOrderAPI(unittest.TestCase):
             })
 
     def test_place_market_buy_order(self):
-        symbols = ['BTC_BRL', 'ETH_BTC', 'BTC_ETH']
+        symbols = ['BTC_BRL', 'ETH_BTC', 'XRP_ETH']
         for symbol in symbols:
             symbol_config = self.symbols_config[symbol]
             order_create_response = self.api.create_order('BTC_BRL', 'MARKET', 'BUY', value = symbol_config['minOrderValue'])
@@ -103,7 +103,7 @@ class TestOrderAPI(unittest.TestCase):
                 })
 
     def test_place_market_sell_order(self):
-        symbols = ['BTC_BRL', 'ETH_BTC', 'BTC_ETH']
+        symbols = ['BTC_BRL', 'ETH_BTC', 'XRP_ETH']
         for symbol in symbols:
             symbol_config = self.symbols_config[symbol]
             order_create_response = self.api.create_order('BTC_BRL', 'MARKET', 'SELL', amount = symbol_config['minOrderAmount'])
@@ -140,7 +140,7 @@ class TestOrderAPI(unittest.TestCase):
                 })
     
     def test_list_orders(self):
-        symbols = ['BTC_BRL', 'ETH_BTC', 'BTC_ETH']
+        symbols = ['BTC_BRL', 'ETH_BTC', 'XRP_ETH']
         for symbol in symbols:
             list_orders_response = self.api.list_orders(symbol)
             for order in list_orders_response['data']:
