@@ -26,7 +26,7 @@ class TestOrderAPI(unittest.TestCase):
             symbol_config = self.symbols_config[symbol]
             side = random.choice(['BUY', 'SELL'])
             price = 99999999 if side == 'SELL' else (1 / pow(10, symbol_config['pricePrecision']))
-            order_create_response = self.api.create_order('BTC_BRL', 'LIMIT', side, price = price, amount = symbol_config['minOrderAmount'])
+            order_create_response = self.api.create_order(symbol, 'LIMIT', side, price = price, amount = symbol_config['minOrderAmount'])
             self.are_dict_type_equal(order_create_response['data'], {
                 "id": "608695623247466496",
                 "symbol": "BTC_BRL",
@@ -69,7 +69,7 @@ class TestOrderAPI(unittest.TestCase):
         symbols = ['BTC_BRL', 'ETH_BTC', 'XRP_ETH']
         for symbol in symbols:
             symbol_config = self.symbols_config[symbol]
-            order_create_response = self.api.create_order('BTC_BRL', 'MARKET', 'BUY', value = symbol_config['minOrderValue'])
+            order_create_response = self.api.create_order(symbol, 'MARKET', 'BUY', value = symbol_config['minOrderValue'])
             self.are_dict_type_equal(order_create_response['data'], {
                 "id": "608695623247466496",
                 "symbol": "BTC_BRL",
@@ -106,7 +106,7 @@ class TestOrderAPI(unittest.TestCase):
         symbols = ['BTC_BRL', 'ETH_BTC', 'XRP_ETH']
         for symbol in symbols:
             symbol_config = self.symbols_config[symbol]
-            order_create_response = self.api.create_order('BTC_BRL', 'MARKET', 'SELL', amount = symbol_config['minOrderAmount'])
+            order_create_response = self.api.create_order(symbol, 'MARKET', 'SELL', amount = symbol_config['minOrderAmount'])
             self.are_dict_type_equal(order_create_response['data'], {
                 "id": "608695623247466496",
                 "symbol": "BTC_BRL",
@@ -138,7 +138,7 @@ class TestOrderAPI(unittest.TestCase):
                     "role": "MAKER",
                     "timestamp": 1565171053345
                 })
-    
+
     def test_list_orders(self):
         symbols = ['BTC_BRL', 'ETH_BTC', 'XRP_ETH']
         for symbol in symbols:
