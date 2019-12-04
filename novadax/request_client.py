@@ -48,8 +48,9 @@ class RequestClient(object):
             'limit': limit
         })
 
-    def create_order(self, symbol, _type, side, price=None, amount=None, value=None):
+    def create_order(self, symbol, _type, side, price=None, amount=None, value=None, account_id=None):
         return self._http.post_with_auth('/v1/orders/create', {}, {
+            'accountId': account_id,
             'symbol': symbol,
             'type': _type,
             'side': side,

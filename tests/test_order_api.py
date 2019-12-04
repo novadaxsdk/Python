@@ -21,11 +21,12 @@ class TestOrderAPI(unittest.TestCase):
                 self.assertIsInstance(first_dict[item_key], second_dict[item_key].__class__)
 
     def test_place_limit_order(self):
-        symbols = ['BTC_BRL', 'ETH_BTC', 'XLM_ETH']
+        symbols = ['BTC_BRL']
         for symbol in symbols:
             symbol_config = self.symbols_config[symbol]
             side = random.choice(['BUY', 'SELL'])
-            price = 99999999 if side == 'SELL' else (1 / pow(10, symbol_config['pricePrecision']))
+            last_price = self.api.list_trades(symbol, 1)['data'][0]['price']
+            price = math.ceil(float(last_price) * 0.91) if side == 'BUY' else math.floor(float(last_price) * 1.09)
             order_create_response = self.api.create_order(symbol, 'LIMIT', side, price = price, amount = symbol_config['minOrderAmount'])
             self.are_dict_type_equal(order_create_response['data'], {
                 "id": "608695623247466496",
@@ -66,7 +67,7 @@ class TestOrderAPI(unittest.TestCase):
             })
 
     def test_place_market_buy_order(self):
-        symbols = ['BTC_BRL', 'ETH_BTC', 'XLM_ETH']
+        symbols = ['BTC_BRL']
         for symbol in symbols:
             symbol_config = self.symbols_config[symbol]
             order_create_response = self.api.create_order(symbol, 'MARKET', 'BUY', value = symbol_config['minOrderValue'])
@@ -103,7 +104,7 @@ class TestOrderAPI(unittest.TestCase):
                 })
 
     def test_place_market_sell_order(self):
-        symbols = ['BTC_BRL', 'ETH_BTC', 'XLM_ETH']
+        symbols = ['BTC_BRL']
         for symbol in symbols:
             symbol_config = self.symbols_config[symbol]
             order_create_response = self.api.create_order(symbol, 'MARKET', 'SELL', amount = symbol_config['minOrderAmount'])
@@ -140,7 +141,7 @@ class TestOrderAPI(unittest.TestCase):
                 })
 
     def test_list_orders(self):
-        symbols = ['BTC_BRL', 'ETH_BTC', 'XLM_ETH']
+        symbols = ['BTC_BRL']
         for symbol in symbols:
             list_orders_response = self.api.list_orders(symbol)
             for order in list_orders_response['data']:
