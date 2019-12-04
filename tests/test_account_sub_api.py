@@ -28,8 +28,7 @@ class TestAccountSubAPI(unittest.TestCase):
         tid = self.api.subs_transfer(subId, assetCode, transferAmount, transferType);
         print(tid)
 
-
-def test_sub_transfer_record(self):
-    subId = 'CA648855702269333504'
-    ava = self.api.subs_transfer_record(subId)
-    print(ava)
+    def test_sub_transfer_record(self):
+        subId = 'CA648855702269333504'
+        ava = self.api.subs_transfer_record(subId)
+        print(ava)
