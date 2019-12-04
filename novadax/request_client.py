@@ -79,3 +79,20 @@ class RequestClient(object):
             'wallet': toAddr,
             'tag': tag
         })
+
+    def subs(self):
+        return self._http.get_with_auth('/v1/account/subs')
+
+    def subs_balance(self, subId):
+        return self._http.get_with_auth('/v1/account/subs/' + subId + '/balance')
+
+    def subs_transfer(self, subId, assetCode, transferAmount, transferType):
+        return self._http.post_with_auth('/v1/account/subs/transfer', {}, {
+            'subId': subId,
+            'assetCode': assetCode,
+            'transferAmount': transferAmount,
+            'transferType': transferType
+        })
+
+    def subs_transfer_record(self, subId):
+        return self._http.get_with_auth('/v1/account/subs/' + subId + '/transfer-record')
