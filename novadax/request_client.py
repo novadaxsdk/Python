@@ -98,5 +98,5 @@ class RequestClient(object):
 
     def subs_transfer_record(self, subId):
         return self._http.get_with_auth('/v1/account/subs/transfer-record', {
-            subId: subId
+            'subId': subId
         })
