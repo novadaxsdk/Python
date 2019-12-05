@@ -2,7 +2,7 @@ import unittest
 
 from novadax import RequestClient as NovaClient
 # change
-from tests.test_config_local import API_URL, ACCESS_KEY, SECRET_KEY
+from tests.test_config import API_URL, ACCESS_KEY, SECRET_KEY
 
 
 class TestAccountSubAPI(unittest.TestCase):
