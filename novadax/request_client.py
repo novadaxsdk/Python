@@ -84,7 +84,9 @@ class RequestClient(object):
         return self._http.get_with_auth('/v1/account/subs')
 
     def subs_balance(self, subId):
-        return self._http.get_with_auth('/v1/account/subs/' + subId + '/balance')
+        return self._http.get_with_auth('/v1/account/subs/balance', {
+            "subId": subId
+        })
 
     def subs_transfer(self, subId, assetCode, transferAmount, transferType):
         return self._http.post_with_auth('/v1/account/subs/transfer', {}, {
@@ -95,4 +97,6 @@ class RequestClient(object):
         })
 
     def subs_transfer_record(self, subId):
-        return self._http.get_with_auth('/v1/account/subs/' + subId + '/transfer-record')
+        return self._http.get_with_auth('/v1/account/subs/transfer-record', {
+            subId: subId
+        })
