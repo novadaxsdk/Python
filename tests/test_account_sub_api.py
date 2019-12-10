@@ -22,10 +22,10 @@ class TestAccountSubAPI(unittest.TestCase):
 
     def test_sub_transfer(self):
         subId = 'CA648856083527372800'
-        assetCode = 'BTC'
+        currency = 'BTC'
         transferAmount = '0.51'
         transferType = 'master-transfer-out'
-        tid = self.api.subs_transfer(subId, assetCode, transferAmount, transferType);
+        tid = self.api.subs_transfer(subId, currency, transferAmount, transferType);
         print(tid)
 
     def test_sub_transfer_record(self):

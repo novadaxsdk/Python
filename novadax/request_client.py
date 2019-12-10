@@ -88,10 +88,10 @@ class RequestClient(object):
             "subId": subId
         })
 
-    def subs_transfer(self, subId, assetCode, transferAmount, transferType):
+    def subs_transfer(self, subId, currency, transferAmount, transferType):
         return self._http.post_with_auth('/v1/account/subs/transfer', {}, {
             'subId': subId,
-            'assetCode': assetCode,
+            'currency': currency,
             'transferAmount': transferAmount,
             'transferType': transferType
         })
