@@ -36,9 +36,12 @@ class RequestClient(object):
             'id': _id
         })
 
-    def list_orders(self, symbol, status=None, from_id=None, to_id=None, from_timestamp=None, to_timestamp=None,
-                    limit=100):
+    def list_orders(self, symbol, status=None,
+                    from_id=None, to_id=None,
+                    from_timestamp=None, to_timestamp=None,
+                    account_id=None, limit=100):
         return self._http.get_with_auth('/v1/orders/list', {
+            'accountId': account_id,
             'symbol': symbol,
             'status': status,
             'fromId': from_id,
