@@ -125,3 +125,6 @@ dmypy.json
 
 # idea
 ./.idea
+./.devcontainer
+tests/test_config_local.py
+docs

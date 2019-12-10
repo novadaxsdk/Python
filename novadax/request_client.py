@@ -73,7 +73,7 @@ class RequestClient(object):
         })
 
     def get_account_balance(self):
-        return self._http.get_with_auth('/v1/account/getBalance')
+        return self._http.get_with_auth('/v1/account/balance')
 
     def withdraw_coin(self, code, amount, toAddr, tag=None):
         return self._http.post_with_auth('/v1/account/withdraw/coin', {}, {
@@ -81,4 +81,25 @@ class RequestClient(object):
             'code': code,
             'wallet': toAddr,
             'tag': tag
+        })
+
+    def subs(self):
+        return self._http.get_with_auth('/v1/account/subs')
+
+    def subs_balance(self, subId):
+        return self._http.get_with_auth('/v1/account/subs/balance', {
+            "subId": subId
+        })
+
+    def subs_transfer(self, subId, currency, transferAmount, transferType):
+        return self._http.post_with_auth('/v1/account/subs/transfer', {}, {
+            'subId': subId,
+            'currency': currency,
+            'transferAmount': transferAmount,
+            'transferType': transferType
+        })
+
+    def subs_transfer_record(self, subId):
+        return self._http.get_with_auth('/v1/account/subs/transfer/record', {
+            'subId': subId
         })
