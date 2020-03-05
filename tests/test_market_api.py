@@ -17,7 +17,6 @@ class TestMarketAPI(unittest.TestCase):
     def test_list_tickers(self):
         response = self.api.list_tickers()
         self.assertLessEqual(0, len(response['data']))
-
         for symbol in response['data']:
             self.are_dict_type_equal(symbol, {
                 "ask": "",

@@ -8,6 +8,11 @@ class RequestClient(object):
     def get_timestamp(self):
         return self._http.get('/v1/common/timestamp')
 
+    def get_symbol(self, symbol):
+        return self._http.get('/v1/common/symbol', {
+            'symbol': symbol
+        })
+
     def list_symbols(self):
         return self._http.get('/v1/common/symbols')
 

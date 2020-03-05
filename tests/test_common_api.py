@@ -15,6 +15,20 @@ class TestCommonAPI(unittest.TestCase):
             if first_dict[item_key] is not None and second_dict[item_key] is not None:
                 self.assertIsInstance(first_dict[item_key], second_dict[item_key].__class__)
 
+    def test_get_symbol(self):
+        response = self.api.get_symbol('BTC_BRL')
+        self.are_dict_type_equal(response['data'], {
+            "symbol": "BTC_BRL",
+            "status": "ONLINE",
+            "baseCurrency": "BTC",
+            "quoteCurrency": "BRL",
+            "amountPrecision": 4,
+            "pricePrecision": 2,
+            "valuePrecision": 4,
+            "minOrderAmount": "0.001",
+            "minOrderValue": "5",
+        })
+
     def test_list_symbols(self):
         response = self.api.list_symbols()
         self.assertLessEqual(0, len(response['data']))
