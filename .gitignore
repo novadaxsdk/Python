@@ -128,3 +128,4 @@ dmypy.json
 ./.devcontainer
 tests/test_config_local.py
 docs
+./.vscode

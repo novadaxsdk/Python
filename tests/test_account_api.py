@@ -5,6 +5,7 @@ from tests.test_config import API_URL, ACCESS_KEY, SECRET_KEY
 
 
 class TestAccountAPI(unittest.TestCase):
+
     @classmethod
     def setUpClass(self):
         self.api = NovaClient(ACCESS_KEY, SECRET_KEY, url=API_URL)
@@ -18,6 +19,7 @@ class TestAccountAPI(unittest.TestCase):
     def test_get_account_balance(self):
         get_account_balance_response = self.api.get_account_balance()
         print(get_account_balance_response)
+
         '''
         for account in get_account_balance_response['data']:
             self.are_dict_type_equal(account, {
@@ -30,4 +32,9 @@ class TestAccountAPI(unittest.TestCase):
         '''
 
     def test_withdraw_coin(self):
-        print(self.api.withdraw_coin("USDT", "1", '..'))
+        print(self.api.withdraw_coin("ETC", "0.5",
+                                     '0x4d41b6faa5719b104d326fe5be9661b1314e2206'))
+
+    def test_get_account_balance_current(self):
+        balanceWithTimestamp = self.api.get_account_balance_current()
+        print(balanceWithTimestamp)

@@ -3,6 +3,7 @@ from urllib.parse import urlparse, parse_qsl, quote
 from requests.auth import AuthBase
 from novadax.impl import utils
 
+
 class HTTPAuth(AuthBase):
     _without_content_body_method = ['GET', 'DELETE', 'HEAD']
 
