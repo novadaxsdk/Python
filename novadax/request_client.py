@@ -36,6 +36,14 @@ class RequestClient(object):
             'limit': limit
         })
 
+    def get_kline(self, symbol, unit, from_timestamp, to_timestamp):
+        return self._http.get('/v1/market/kline/history', {
+            'symbol': symbol,
+            'unit': unit,
+            'from': from_timestamp,
+            'to': to_timestamp
+        })
+
     def get_order(self, _id):
         return self._http.get_with_auth('/v1/orders/get', {
             'id': _id
@@ -72,9 +80,19 @@ class RequestClient(object):
             'id': _id
         })
 
-    def list_order_fills(self, _id):
-        return self._http.get_with_auth('/v1/orders/fill', {
-            'id': _id
+    def list_order_fills(self, order_id=None, symbol=None,
+                    from_id=None, to_id=None,
+                    from_timestamp=None, to_timestamp=None,
+                    account_id=None, limit=100):
+        return self._http.get_with_auth('/v1/orders/fills', {
+            'accountId': account_id,
+            'orderId': order_id,
+            'symbol': symbol,
+            'fromId': from_id,
+            'toId': to_id,
+            'fromTimestamp': from_timestamp,
+            'toTimestamp': to_timestamp,
+            'limit': limit
         })
 
     def get_account_balance(self):
