@@ -49,7 +49,7 @@ class TestMarketAPI(unittest.TestCase):
             })
     
     def test_get_depth(self):
-        symbols = ['BTC_BRL', 'ETH_BTC', 'XLM_ETH']
+        symbols = ['BTC_BRL', 'ETH_BTC']
         for symbol in symbols:
             response = self.api.get_depth(symbol)
             self.are_dict_type_equal(response['data'], {
