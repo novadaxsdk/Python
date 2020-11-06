@@ -1,18 +1,19 @@
-import time
 import math
 import random
+import time
 import unittest
 
 from novadax import RequestClient as NovaClient
-from tests.test_config import API_URL, ACCESS_KEY, SECRET_KEY
+from tests.test_config import REST_ENDPOINT, ACCESS_KEY, SECRET_KEY
+
 
 class TestOrderAPI(unittest.TestCase):
     @classmethod
-    def setUpClass(self):
-        self.api = NovaClient(ACCESS_KEY, SECRET_KEY, url=API_URL)
-        self.symbols_config = {}
-        for symbol_config in self.api.list_symbols()['data']:
-            self.symbols_config[symbol_config['symbol']] = symbol_config
+    def setUpClass(cls):
+        cls.api = NovaClient(ACCESS_KEY, SECRET_KEY, endpoint=REST_ENDPOINT)
+        cls.symbols_config = {}
+        for symbol_config in cls.api.list_symbols()['data']:
+            cls.symbols_config[symbol_config['symbol']] = symbol_config
 
     def are_dict_type_equal(self, first_dict, second_dict):
         self.assertCountEqual(first_dict.keys(), second_dict.keys())
@@ -27,7 +28,8 @@ class TestOrderAPI(unittest.TestCase):
             side = random.choice(['BUY', 'SELL'])
             last_price = self.api.list_trades(symbol, 1)['data'][0]['price']
             price = math.ceil(float(last_price) * 0.91) if side == 'BUY' else math.floor(float(last_price) * 1.09)
-            order_create_response = self.api.create_order(symbol, 'LIMIT', side, price = price, amount = symbol_config['minOrderAmount'])
+            order_create_response = self.api.create_order(symbol, 'LIMIT', side, price=price,
+                                                          amount=symbol_config['minOrderAmount'])
             self.are_dict_type_equal(order_create_response['data'], {
                 "id": "608695623247466496",
                 "symbol": "BTC_BRL",
@@ -70,7 +72,7 @@ class TestOrderAPI(unittest.TestCase):
         symbols = ['BTC_BRL']
         for symbol in symbols:
             symbol_config = self.symbols_config[symbol]
-            order_create_response = self.api.create_order(symbol, 'MARKET', 'BUY', value = symbol_config['minOrderValue'])
+            order_create_response = self.api.create_order(symbol, 'MARKET', 'BUY', value=symbol_config['minOrderValue'])
             self.are_dict_type_equal(order_create_response['data'], {
                 "id": "608695623247466496",
                 "symbol": "BTC_BRL",
@@ -99,6 +101,8 @@ class TestOrderAPI(unittest.TestCase):
                     "amount": "0.0988",
                     "price": "45514.76",
                     "fee": "0.0000988 BTC",
+                    "feeAmount": "0.0000988",
+                    "feeCurrency": "BTC",
                     "role": "MAKER",
                     "timestamp": 1565171053345
                 })
@@ -107,7 +111,8 @@ class TestOrderAPI(unittest.TestCase):
         symbols = ['BTC_BRL']
         for symbol in symbols:
             symbol_config = self.symbols_config[symbol]
-            order_create_response = self.api.create_order(symbol, 'MARKET', 'SELL', amount = symbol_config['minOrderAmount'])
+            order_create_response = self.api.create_order(symbol, 'MARKET', 'SELL',
+                                                          amount=symbol_config['minOrderAmount'])
             self.are_dict_type_equal(order_create_response['data'], {
                 "id": "608695623247466496",
                 "symbol": "BTC_BRL",
@@ -136,6 +141,8 @@ class TestOrderAPI(unittest.TestCase):
                     "amount": "0.0988",
                     "price": "45514.76",
                     "fee": "0.0000988 BTC",
+                    "feeAmount": "0.0000988",
+                    "feeCurrency": "BTC",
                     "role": "MAKER",
                     "timestamp": 1565171053345
                 })

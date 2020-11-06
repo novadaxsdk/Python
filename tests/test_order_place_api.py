@@ -1,19 +1,17 @@
-import time
-import math
-import random
 import unittest
 
 from novadax import RequestClient as NovaClient
-from tests.test_config import API_URL, ACCESS_KEY, SECRET_KEY
+from tests.test_config import REST_ENDPOINT, ACCESS_KEY, SECRET_KEY
+
 
 class TestOrderAPI(unittest.TestCase):
 
     @classmethod
-    def setUpClass(self):
-        self.api = NovaClient(ACCESS_KEY, SECRET_KEY, url=API_URL)
-        self.symbols_config = {}
-        for symbol_config in self.api.list_symbols()['data']:
-            self.symbols_config[symbol_config['symbol']] = symbol_config
+    def setUpClass(cls):
+        cls.api = NovaClient(ACCESS_KEY, SECRET_KEY, endpoint=REST_ENDPOINT)
+        cls.symbols_config = {}
+        for symbol_config in cls.api.list_symbols()['data']:
+            cls.symbols_config[symbol_config['symbol']] = symbol_config
 
     def test_place_limit_order(self):
         try:
@@ -76,4 +74,3 @@ class TestOrderAPI(unittest.TestCase):
             print(self.api.create_order('BTC_BRL', 'MARKET', 'BUY', '30000', '0', "121211111121212.12"))
         except Exception as e:
             print(str(e))
-

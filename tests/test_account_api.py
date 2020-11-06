@@ -1,14 +1,14 @@
 import unittest
 
 from novadax import RequestClient as NovaClient
-from tests.test_config import API_URL, ACCESS_KEY, SECRET_KEY
+from tests.test_config import REST_ENDPOINT, ACCESS_KEY, SECRET_KEY
 
 
 class TestAccountAPI(unittest.TestCase):
 
     @classmethod
-    def setUpClass(self):
-        self.api = NovaClient(ACCESS_KEY, SECRET_KEY, url=API_URL)
+    def setUpClass(cls):
+        cls.api = NovaClient(ACCESS_KEY, SECRET_KEY, endpoint=REST_ENDPOINT)
 
     def are_dict_type_equal(self, first_dict, second_dict):
         self.assertCountEqual(first_dict.keys(), second_dict.keys())

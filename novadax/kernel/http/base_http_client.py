@@ -1,30 +1,31 @@
 import requests
+
 from novadax.exception import *
-from novadax.impl.http_auth import HTTPAuth
+from novadax.kernel.http.base_http_auth import BaseHTTPAuth
 
 
-class HTTPClient(object):
-    def __init__(self, url, access_key = None, secret_key = None):
-        self._url = url
+class BaseHTTPClient:
+    def __init__(self, endpoint, access_key=None, secret_key=None):
+        self._endpoint = endpoint
         if access_key and secret_key:
-            self._auth = HTTPAuth(access_key, secret_key)
+            self._auth = BaseHTTPAuth(access_key, secret_key)
         else:
             self._auth = None
 
-    def get(self, path, params = dict()):
-        return self._request(False, 'get', path, params = params)
+    def get(self, path, params=None):
+        return self._request(False, 'get', path, params=params)
 
-    def post(self, path, params = dict(), json = dict()):
-        return self._request(False, 'post', path, params = params, json = json)
+    def post(self, path, params=None, json=None):
+        return self._request(False, 'post', path, params=params, json=json)
 
-    def get_with_auth(self, path, params = dict()):
-        return self._request(True, 'get', path, params = params)
+    def get_with_auth(self, path, params=None):
+        return self._request(True, 'get', path, params=params)
 
-    def post_with_auth(self, path, params = dict(), json = dict()):
-        return self._request(True, 'post', path, params = params, json = json)
+    def post_with_auth(self, path, params=None, json=None):
+        return self._request(True, 'post', path, params=params, json=json)
 
     def _request(self, auth, method, path, **kwargs):
-        url = self._url + path
+        url = self._endpoint + path
         if auth and not self._auth:
             raise RuntimeException('A99999', 'access key and secret key is required.')
         elif auth:
@@ -56,7 +57,8 @@ class HTTPClient(object):
             raise RequestException(result['code'], result['message'])
         return result
 
-    def _filter_none(self, data):
+    @staticmethod
+    def _filter_none(data):
         if isinstance(data, dict):
-            return { k: v for k,v in data.items() if v is not None }
+            return {k: v for k, v in data.items() if v is not None}
         return data

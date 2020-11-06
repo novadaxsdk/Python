@@ -1,43 +1,43 @@
-from novadax.impl import HTTPClient
+from novadax.kernel import BaseHTTPClient
 
 
-class RequestClient(object):
-    def __init__(self, access_key=None, secret_key=None, url='https://api.novadax.com'):
-        self._http = HTTPClient(url, access_key, secret_key)
+class RequestClient:
+    def __init__(self, access_key=None, secret_key=None, endpoint='https://api.novadax.com'):
+        self._client = BaseHTTPClient(endpoint, access_key, secret_key)
 
     def get_timestamp(self):
-        return self._http.get('/v1/common/timestamp')
+        return self._client.get('/v1/common/timestamp')
 
     def get_symbol(self, symbol):
-        return self._http.get('/v1/common/symbol', {
+        return self._client.get('/v1/common/symbol', {
             'symbol': symbol
         })
 
     def list_symbols(self):
-        return self._http.get('/v1/common/symbols')
+        return self._client.get('/v1/common/symbols')
 
     def list_tickers(self):
-        return self._http.get('/v1/market/tickers')
+        return self._client.get('/v1/market/tickers')
 
     def get_ticker(self, symbol):
-        return self._http.get('/v1/market/ticker', {
+        return self._client.get('/v1/market/ticker', {
             'symbol': symbol
         })
 
     def get_depth(self, symbol, limit=100):
-        return self._http.get('/v1/market/depth', {
+        return self._client.get('/v1/market/depth', {
             'symbol': symbol,
             'limit': limit
         })
 
     def list_trades(self, symbol, limit=100):
-        return self._http.get('/v1/market/trades', {
+        return self._client.get('/v1/market/trades', {
             'symbol': symbol,
             'limit': limit
         })
 
     def get_kline(self, symbol, unit, from_timestamp, to_timestamp):
-        return self._http.get('/v1/market/kline/history', {
+        return self._client.get('/v1/market/kline/history', {
             'symbol': symbol,
             'unit': unit,
             'from': from_timestamp,
@@ -45,7 +45,7 @@ class RequestClient(object):
         })
 
     def get_order(self, _id):
-        return self._http.get_with_auth('/v1/orders/get', {
+        return self._client.get_with_auth('/v1/orders/get', {
             'id': _id
         })
 
@@ -53,7 +53,7 @@ class RequestClient(object):
                     from_id=None, to_id=None,
                     from_timestamp=None, to_timestamp=None,
                     account_id=None, limit=100):
-        return self._http.get_with_auth('/v1/orders/list', {
+        return self._client.get_with_auth('/v1/orders/list', {
             'accountId': account_id,
             'symbol': symbol,
             'status': status,
@@ -65,7 +65,7 @@ class RequestClient(object):
         })
 
     def create_order(self, symbol, _type, side, price=None, amount=None, value=None, account_id=None):
-        return self._http.post_with_auth('/v1/orders/create', {}, {
+        return self._client.post_with_auth('/v1/orders/create', {}, {
             'accountId': account_id,
             'symbol': symbol,
             'type': _type,
@@ -76,15 +76,15 @@ class RequestClient(object):
         })
 
     def cancle_order(self, _id):
-        return self._http.post_with_auth('/v1/orders/cancel', {}, {
+        return self._client.post_with_auth('/v1/orders/cancel', {}, {
             'id': _id
         })
 
     def list_order_fills(self, order_id=None, symbol=None,
-                    from_id=None, to_id=None,
-                    from_timestamp=None, to_timestamp=None,
-                    account_id=None, limit=100):
-        return self._http.get_with_auth('/v1/orders/fills', {
+                         from_id=None, to_id=None,
+                         from_timestamp=None, to_timestamp=None,
+                         account_id=None, limit=100):
+        return self._client.get_with_auth('/v1/orders/fills', {
             'accountId': account_id,
             'orderId': order_id,
             'symbol': symbol,
@@ -96,13 +96,13 @@ class RequestClient(object):
         })
 
     def get_account_balance(self):
-        return self._http.get_with_auth('/v1/account/getBalance')
+        return self._client.get_with_auth('/v1/account/getBalance')
 
     def get_account_balance_current(self):
-        return self._http.get_with_auth('/v1/account/getBalance/current')
+        return self._client.get_with_auth('/v1/account/getBalance/current')
 
     def withdraw_coin(self, code, amount, toAddr, tag=None):
-        return self._http.post_with_auth('/v1/account/withdraw/coin', {}, {
+        return self._client.post_with_auth('/v1/account/withdraw/coin', {}, {
             'amount': amount,
             'code': code,
             'wallet': toAddr,
@@ -110,22 +110,22 @@ class RequestClient(object):
         })
 
     def subs(self):
-        return self._http.get_with_auth('/v1/account/subs')
+        return self._client.get_with_auth('/v1/account/subs')
 
-    def subs_balance(self, subId):
-        return self._http.get_with_auth('/v1/account/subs/balance', {
-            "subId": subId
+    def subs_balance(self, sub_id):
+        return self._client.get_with_auth('/v1/account/subs/balance', {
+            "subId": sub_id
         })
 
-    def subs_transfer(self, subId, currency, transferAmount, transferType):
-        return self._http.post_with_auth('/v1/account/subs/transfer', {}, {
-            'subId': subId,
+    def subs_transfer(self, sub_id, currency, transfer_amount, transfer_type):
+        return self._client.post_with_auth('/v1/account/subs/transfer', {}, {
+            'subId': sub_id,
             'currency': currency,
-            'transferAmount': transferAmount,
-            'transferType': transferType
+            'transferAmount': transfer_amount,
+            'transferType': transfer_type
         })
 
-    def subs_transfer_record(self, subId):
-        return self._http.get_with_auth('/v1/account/subs/transfer/record', {
-            'subId': subId
+    def subs_transfer_record(self, sub_id):
+        return self._client.get_with_auth('/v1/account/subs/transfer/record', {
+            'subId': sub_id
         })

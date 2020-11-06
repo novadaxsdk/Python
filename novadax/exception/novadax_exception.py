@@ -3,8 +3,10 @@ class NovadaxException(Exception):
         self.code = code
         self.message = message
 
+
 class RuntimeException(NovadaxException):
     pass
+
 
 class RequestException(NovadaxException):
     pass

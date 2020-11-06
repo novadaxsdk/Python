@@ -1,12 +1,13 @@
 import unittest
 
 from novadax import RequestClient as NovaClient
-from tests.test_config import API_URL, ACCESS_KEY, SECRET_KEY
+from tests.test_config import REST_ENDPOINT, ACCESS_KEY, SECRET_KEY
+
 
 class TestMarketAPI(unittest.TestCase):
     @classmethod
-    def setUpClass(self):
-        self.api = NovaClient(ACCESS_KEY, SECRET_KEY, url=API_URL)
+    def setUpClass(cls):
+        cls.api = NovaClient(ACCESS_KEY, SECRET_KEY, endpoint=REST_ENDPOINT)
 
     def are_dict_type_equal(self, first_dict, second_dict):
         self.assertCountEqual(first_dict.keys(), second_dict.keys())
@@ -30,7 +31,7 @@ class TestMarketAPI(unittest.TestCase):
                 "symbol": "BTC_BRL",
                 "timestamp": 1565071855378
             })
-    
+
     def test_get_ticker(self):
         symbols = ['BTC_BRL', 'ETH_BTC', 'XLM_ETH']
         for symbol in symbols:
@@ -47,7 +48,7 @@ class TestMarketAPI(unittest.TestCase):
                 "symbol": "BTC_BRL",
                 "timestamp": 1565071855378
             })
-    
+
     def test_get_depth(self):
         symbols = ['BTC_BRL', 'ETH_BTC']
         for symbol in symbols:
@@ -71,7 +72,7 @@ class TestMarketAPI(unittest.TestCase):
         for symbol in symbols:
             response = self.api.list_trades(symbol)
             self.assertLessEqual(0, len(response['data']))
-            
+
             for trade in response['data']:
                 self.are_dict_type_equal(trade, {
                     "price": "43657.57",
