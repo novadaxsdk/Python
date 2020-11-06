@@ -2,7 +2,7 @@ from novadax.kernel.websocket import BaseWebSocketClient
 
 
 class WebSocketClient:
-    def __init__(self, access_key=None, secret_key=None, endpoint='https://api.novadax.com'):
+    def __init__(self, access_key=None, secret_key=None, endpoint='wss://api.novadax.com'):
         self._client = BaseWebSocketClient(endpoint)
 
     def sub_market_tickers(self, callback):
