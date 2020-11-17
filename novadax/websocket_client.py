@@ -16,6 +16,3 @@ class WebSocketClient:
 
     def sub_market_trade(self, symbol, callback):
         self._client.subscribe(f"MARKET.{symbol}.TRADE", callback)
-
-    def sub_market_kline(self, symbol, unit, callback):
-        self._client.subscribe(f"MARKET.{symbol}.KLINE.{unit}", callback)

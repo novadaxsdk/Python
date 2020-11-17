@@ -11,7 +11,7 @@ class BaseWebSocketClient:
         if self._socket is None:
             print(self._endpoint)
             self._socket = socketio.Client()
-            self._socket.connect(self._endpoint)
+            self._socket.connect(self._endpoint, transports=['websocket'])
         return self._socket
 
     def subscribe(self, topic, callback):

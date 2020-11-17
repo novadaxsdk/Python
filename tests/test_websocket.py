@@ -25,6 +25,3 @@ class MyTestCase(unittest.TestCase):
 
     def test_sub_market_trade(self):
         self.api.sub_market_trade("BTC_BRL", message_handler)
-
-    def test_sub_market_kline(self):
-        self.api.sub_market_kline("BTC_BRL", "1M", message_handler)
