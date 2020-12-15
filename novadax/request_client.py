@@ -36,12 +36,12 @@ class RequestClient:
             'limit': limit
         })
 
-    def get_kline(self, symbol, unit, from_timestamp, to_timestamp):
+    def get_kline(self, symbol, unit, from_score, to_score):
         return self._client.get('/v1/market/kline/history', {
             'symbol': symbol,
             'unit': unit,
-            'from': from_timestamp,
-            'to': to_timestamp
+            'from': from_score,
+            'to': to_score
         })
 
     def get_order(self, _id):
