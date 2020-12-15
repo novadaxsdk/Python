@@ -1,14 +1,12 @@
-import setuptools
+from setuptools import setup, find_packages
 
-print(setuptools.find_packages())
-
-setuptools.setup(
+setup(
     name="novadax",
     version="1.1.0",
     author="NovaDAX",
     author_email="support@novadax.com",
     description="NovaDAX API SDK",
     url="https://doc.novadax.com/",
-    packages=["novadax", "novadax.exception", "novadax.kernel"],
+    packages=find_packages(exclude=["tests*"]),
     install_requires=['requests']
 )
