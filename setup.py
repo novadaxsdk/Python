@@ -8,5 +8,8 @@ setup(
     description="NovaDAX API SDK",
     url="https://doc.novadax.com/",
     packages=find_packages(exclude=["tests*"]),
-    install_requires=['requests']
+    install_requires=[
+        'requests>=2,<3',
+        'python-socketio[client]'
+    ]
 )
