@@ -64,7 +64,8 @@ class RequestClient:
             'limit': limit
         })
 
-    def create_order(self, symbol, _type, side, price=None, amount=None, value=None, account_id=None):
+    def create_order(self, symbol, _type, side, price=None, amount=None, value=None,
+                     account_id=None, operator=None, stop_price=None):
         return self._client.post_with_auth('/v1/orders/create', {}, {
             'accountId': account_id,
             'symbol': symbol,
@@ -72,7 +73,9 @@ class RequestClient:
             'side': side,
             'price': price,
             'amount': amount,
-            'value': value
+            'value': value,
+            'operator': operator,
+            'stopPrice': stop_price
         })
 
     def cancle_order(self, _id):
