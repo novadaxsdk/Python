@@ -113,6 +113,11 @@ class RequestClient:
             'tag': tag
         })
 
+    def crypto_chain(self, code='ALL'):
+        return self._client.get_with_auth('/crypto/chain/' + code, {
+            'code': code
+        })
+
     def subs(self):
         return self._client.get_with_auth('/v1/account/subs')
 
