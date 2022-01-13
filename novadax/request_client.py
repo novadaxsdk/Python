@@ -104,10 +104,11 @@ class RequestClient:
     def get_account_balance_current(self):
         return self._client.get_with_auth('/v1/account/getBalance/current')
 
-    def withdraw_coin(self, code, amount, toAddr, tag=None):
+    def withdraw_coin(self, code, amount, toAddr, tag=None, chainAlias=None):
         return self._client.post_with_auth('/v1/account/withdraw/coin', {}, {
             'amount': amount,
             'code': code,
+            'chainAlias': chainAlias,
             'wallet': toAddr,
             'tag': tag
         })
