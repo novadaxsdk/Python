@@ -105,7 +105,7 @@ class RequestClient:
         return self._client.get_with_auth('/v1/account/getBalance/current')
 
     def withdraw_coin(self, code, amount, toAddr, tag=None, chainAlias=None):
-        return self._client.post_with_auth('/v1/account/withdraw/coin', {}, {
+        return self._client.post_with_auth('/v1/wallet/withdraw/coin', {}, {
             'amount': amount,
             'code': code,
             'chainAlias': chainAlias,
@@ -114,7 +114,7 @@ class RequestClient:
         })
 
     def crypto_chain(self, code='ALL'):
-        return self._client.get_with_auth('/crypto/chain/' + code, {
+        return self._client.get_with_auth('/v1/wallet/crypto/chain/' + code, {
             'code': code
         })
 
