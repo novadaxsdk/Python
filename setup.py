@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="novadax",
-    version="1.1.3",
+    version="1.1.4",
     author="NovaDAX",
     author_email="support@novadax.com",
     description="NovaDAX API SDK",
