@@ -113,6 +113,15 @@ class RequestClient:
             'tag': tag
         })
 
+    def wallet_deposit_withdraw_record(self, currency='BTC', type='coin_in', direct='asc', size=100, start=None):
+        return self._client.get_with_auth('/v1/wallet/query/deposit-withdraw', {}, {
+            'currency': currency,
+            'type': type,
+            'start': start,
+            'size': size,
+            'direct': direct
+        })
+
     def crypto_chain(self, code='ALL'):
         return self._client.get_with_auth('/v1/wallet/crypto/chain/' + code, {
             'code': code

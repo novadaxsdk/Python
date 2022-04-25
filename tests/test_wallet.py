@@ -18,3 +18,7 @@ class TestWallet(unittest.TestCase):
     def test_withdraw_coin(self):
         res = self.api.withdraw_coin('LINK', '2', '0x0cdc3e160ed5280937a806e0bd9f10dfcad90360', None);
         print(res)
+
+    def test_wallet_deposit_withdraw(self):
+        res = self.api.wallet_deposit_withdraw_record(currency='BTC', type='coin_in', direct='asc', size=100);
+        print(res)
