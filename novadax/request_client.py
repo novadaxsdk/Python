@@ -114,7 +114,7 @@ class RequestClient:
         })
 
     def wallet_deposit_withdraw_record(self, currency='BTC', type='coin_in', direct='asc', size=100, start=None):
-        return self._client.get_with_auth('/v1/wallet/query/deposit-withdraw', {}, {
+        return self._client.get_with_auth('/v1/wallet/query/deposit-withdraw', {
             'currency': currency,
             'type': type,
             'start': start,
